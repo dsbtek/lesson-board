@@ -76,6 +76,9 @@ Improved performance for real-time updates.
 Efficient PDF processing and export.
 
 ---
+---
+##**🚀 Future Enhancements**
+✔ AI-powered content suggestions ✔ Voice-to-text automatic transcription ✔ Handwriting recognition for seamless note-taking ✔ Mobile app version for learning on the go
 
 ### **🚀 Getting Started**
 #### **Prerequisites**
@@ -83,7 +86,7 @@ Efficient PDF processing and export.
 - MongoDB (for lesson storage)  
 - Emscripten (for WebAssembly)  
 - A modern web browser (Chrome, Firefox)
-
+---
 #### **Installation**
 Clone the repository:
 ```sh
