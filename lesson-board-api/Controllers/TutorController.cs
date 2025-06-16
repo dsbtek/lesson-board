@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Authorize(Roles = UserRoles.Tutor)]
+// [Authorize(Roles = UserRoles.Tutor)]
 [Route("api/tutors")]
 [ApiController]
 public class TutorController : ControllerBase

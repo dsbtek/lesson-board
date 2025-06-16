@@ -1,0 +1,65 @@
+services:
+    lesson-board-api:
+        build:
+            context: ./lesson-board-api
+            dockerfile: Dockerfile
+        ports:
+            - '5083:80'
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ConnectionStrings__DefaultConnection=Server=db;Database=LessonBoardDb;User=sa;Password=${DB_PASSWORD};TrustServerCertificate=True
+        depends_on:
+            - db
+            - auth-service
+
+    auth-service:
+        build:
+            context: ./auth-service
+            dockerfile: Dockerfile
+        ports:
+            - '8080:8080'
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/authdb
+            - SPRING_DATASOURCE_USERNAME=postgres
+            - SPRING_DATASOURCE_PASSWORD=${AUTH_DB_PASSWORD}
+        depends_on:
+            - auth-db
+
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - '3000:80'
+        environment:
+            - REACT_APP_API_URL=http://localhost:5083
+            - REACT_APP_AUTH_URL=http://localhost:8080
+        depends_on:
+            - lesson-board-api
+            - auth-service
+
+    db:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=${DB_PASSWORD}
+        ports:
+            - '1433:1433'
+        volumes:
+            - mssql-data:/var/opt/mssql
+
+    auth-db:
+        image: postgres:15
+        environment:
+            - POSTGRES_DB=authdb
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=${AUTH_DB_PASSWORD}
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+
+volumes:
+    mssql-data:
+    postgres-data:
