@@ -82,7 +82,7 @@ Efficient PDF processing and export.
 
 ### **🚀 Getting Started**
 #### **Prerequisites**
-- Node.js & npm  
+-  
 - MongoDB (for lesson storage)  
 - Emscripten (for WebAssembly)  
 - A modern web browser (Chrome, Firefox)
@@ -106,8 +106,7 @@ node server.js
 
 #### **Run Frontend**
 ```sh
-cd frontend
-npm start
+
 ```
 
 #### **Compile WebAssembly**
